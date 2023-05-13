@@ -7,7 +7,7 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 const discountRoutes= require('./routes/discountRoutes');
 const paymentRoutes= require('./routes/paymentRoutes');
 const reservationRoutes=require('./routes/reservationRoutes');
-dotenv.config();
+require ('dotenv').config();
 
 app.use(express.json());
 app.use('/rooms',roomRoutes);

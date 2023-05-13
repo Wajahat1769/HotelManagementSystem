@@ -1,9 +1,20 @@
 const express= require ("express");
 const app=express();
 const port=3001;
-const dotenv=require('dotenv');
 const mongoose=require('mongoose');
+const roomRoutes=require('./routes/roomRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+const discountRoutes= require('./routes/discountRoutes');
+const paymentRoutes= require('./routes/paymentRoutes');
+const reservationRoutes=require('./routes/reservationRoutes');
+dotenv.config();
+
 app.use(express.json());
+app.use('/rooms',roomRoutes);
+app.use('/dashboard', dashboardRoutes);
+app.use('/discount',discountRoutes);
+app.use('/payment',paymentRoutes);
+app.use('/reservationRoutes',reservationRoutes);
 
 const connectionStr=process.env.CONNECTION_STR || "mongodb://localhost:27017/HotelManagementSystem";
 const res= mongoose.connect(

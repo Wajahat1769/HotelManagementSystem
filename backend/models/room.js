@@ -12,7 +12,7 @@ const newSchema= mongoose.Schema({
     pricePerNight: { type: Number, required: true },
     amenities: [{ type: String }], // e.g., WiFi, Air Conditioning, TV
     isAvailable: { type: Boolean, default: true },
-    images: [{ type: String }],
+    images: [{ type: String,default: "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg" }],
   },{timeStamps: true});
 
 const room = mongoose.model('room', newSchema);

@@ -7,6 +7,7 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 const discountRoutes= require('./routes/discountRoutes');
 const paymentRoutes= require('./routes/paymentRoutes');
 const reservationRoutes=require('./routes/reservationRoutes');
+const adminRoutes=require('./routes/adminRoutes');
 require ('dotenv').config();
 
 app.use(express.json());
@@ -15,19 +16,18 @@ app.use('/dashboard', dashboardRoutes);
 app.use('/discount',discountRoutes);
 app.use('/payment',paymentRoutes);
 app.use('/reservationRoutes',reservationRoutes);
+app.use('/admin',adminRoutes);
+const connectionStr=process.env.CONNECTION_STR;
 
-const connectionStr=process.env.CONNECTION_STR || "mongodb://localhost:27017/HotelManagementSystem";
-const res= mongoose.connect(
-    connectionStr,
-    {
-        useNewUrlParser:true,
-        useUnifiedTopology:true
-    }
-).then(()=>{
-    console.log(`connected to db`)
-}).catch((e)=>{
-    console.log(`Error : ${e}`)
-});
+mongoose.connect(connectionStr, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+  }).then(() => {
+    console.log('Connected to db');
+  }).catch((e) => {
+    console.log(`${e}`);
+  });
 
 app.get('/',(req,res)=>{
     res.send('Hello World')

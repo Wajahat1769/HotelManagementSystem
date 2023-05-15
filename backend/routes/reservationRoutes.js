@@ -1,9 +1,9 @@
 const express = require('express');
 const reservationsController = require('../controllers/reservationController');
-
+const adminAuth= require('../middlewares/auth');
 const router = express.Router();
 
-router.get('/', reservationsController.getAllReservations);
+router.get('/',reservationsController.getAllReservations);
 router.get('/:id', reservationsController.getReservationById);
 router.post('/', reservationsController.createReservation);
 router.put('/:id', reservationsController.updateReservation);

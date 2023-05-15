@@ -13,7 +13,8 @@ exports.getAllRooms = async (req, res) => {
 // Get a room by ID
 exports.getRoomById = async (req, res) => {
   try {
-    const room = await Room.findById(req.params.id);
+    
+    const room = await Room.find({roomId:req.params.id});
     if (!room) return res.status(404).json({ message: 'Room not found' });
     res.status(200).json(room);
   } catch (error) {
@@ -21,9 +22,20 @@ exports.getRoomById = async (req, res) => {
   }
 };
 
-// Create a room
+// Create a room for fllowing model
+
 exports.createRoom = async (req, res) => {
-  const room = new Room(req.body);
+  const {roomId,roomType,description,capacity,pricePerNight,amenities,isAvailable,images} = req.body;
+  const room = new Room({
+    roomId,
+    roomType,
+    description,
+    capacity,
+    pricePerNight,
+    amenities,
+    isAvailable,
+    images
+  });
   try {
     const savedRoom = await room.save();
     res.status(201).json(savedRoom);
@@ -35,7 +47,7 @@ exports.createRoom = async (req, res) => {
 // Update a room
 exports.updateRoom = async (req, res) => {
   try {
-    const updatedRoom = await Room.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedRoom = await Room.findOneAndUpdate({roomId:req.params.id}, req.body, { new: true });
     if (!updatedRoom) return res.status(404).json({ message: 'Room not found' });
     res.status(200).json(updatedRoom);
   } catch (error) {
